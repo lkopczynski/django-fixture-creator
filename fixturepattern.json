@@ -1,0 +1,23 @@
+[{
+	"model": "items.item",
+	"fields": {
+		"name": {
+			"type": "string",
+			"generator": "random",
+			"length": 20
+		},
+		"category": {
+			"type": "foreignkey",
+			"object": {
+				"model": "items.category",
+				"fields": {
+					"description": {
+						"type": "string",
+						"generator": "random",
+						"maxlength": 10
+					}
+				}
+			}
+		}
+	}
+}]
