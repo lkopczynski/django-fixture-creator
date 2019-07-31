@@ -1,23 +1,32 @@
-[{
-	"model": "items.item",
-	"fields": {
-		"name": {
-			"type": "string",
-			"generator": "random",
-			"length": 20
-		},
-		"category": {
-			"type": "foreignkey",
-			"object": {
-				"model": "items.category",
-				"fields": {
-					"description": {
-						"type": "string",
-						"generator": "random",
-						"maxlength": 10
-					}
+[
+	{
+		"model": "items.item",
+		"fields": [
+			{
+				"name": "fieldname",
+				"type": "string",
+				"generator": "random",
+				"settings":{
+					"length": 20
+				}
+			},
+			{
+				"name": "category",
+				"type": "foreignkey",
+				"object": {
+					"model": "items.category",
+					"fields": [
+						{
+							"name": "name",
+							"type": "string",
+							"generator": "random",
+							"settings":{
+								"length": 20
+							}
+						}
+					]
 				}
 			}
-		}
+		]
 	}
-}]
+]

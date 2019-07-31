@@ -17,9 +17,9 @@ class BaseGenerator:
 class RandomSequenceGenerator(BaseGenerator):
     _characters = ''
 
-    def __init__(self, min_length=1, max_length=10, exact_length=None, characters='abAB'):
-        if exact_length is not None:
-            self._min_length = self._max_length = int(exact_length)
+    def __init__(self, min_length=1, max_length=10, length=None, characters='abAB'):
+        if length is not None:
+            self._min_length = self._max_length = int(length)
         else:
             self._min_length = min_length
             self._max_length = max_length
