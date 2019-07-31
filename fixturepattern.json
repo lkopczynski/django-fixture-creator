@@ -1,5 +1,46 @@
 [
 	{
+		"model": "items.category",
+		"pk": 1,
+		"fields": [
+			{
+				"name": "name",
+				"type": "string",
+				"generator": "random",
+				"settings":{
+					"length": 20
+				}
+			}
+		]
+	},
+	{
+		"model": "items.item",
+		"count": 3,
+		"fields": [
+			{
+				"name": "fieldname",
+				"type": "string",
+				"generator": "random",
+				"settings":{
+					"length": 20
+				}
+			},
+			{
+				"name": "created",
+				"type": "date",
+				"generator": "random",
+				"settings":{
+					"timedelta_in_days": 5
+				}
+			},
+			{
+				"name": "category",
+				"type": "foreignkey",
+				"content": 1
+			}
+		]
+	},
+	{
 		"model": "items.item",
 		"fields": [
 			{
@@ -8,6 +49,14 @@
 				"generator": "random",
 				"settings":{
 					"length": 20
+				}
+			},
+			{
+				"name": "created",
+				"type": "date",
+				"generator": "random",
+				"settings":{
+					"timedelta_in_days": 5
 				}
 			},
 			{

@@ -7,7 +7,10 @@ class FixtureCreator:
 
     _generators = [
         ('string', 'RandomStringGenerator'),
-        ('string-random', 'RandomStringGenerator')
+        ('stringrandom', 'RandomStringGenerator'),
+        ('date', 'DateGenerator'),
+        ('daterandom', 'RandomDateGenerator'),
+        ('integer', 'RandomIntegerGenerator')
     ]
 
     _pattern = None
@@ -25,12 +28,22 @@ class FixtureCreator:
             raise ValueError('No pattern defined!')
 
         for element in self._pattern:
-            self._create_element(element)
+            if 'count' in element:
+                for _ in range(element['count']):
+                    self._create_element(element)
+            else:
+                self._create_element(element)
 
     def create_from_json(self, json_string):
         self.load_pattern(json_string)
         self.go_over_pattern()
         return json.dumps(self._elements)
+
+    def register_generator(self, designation, class_path):
+        for generator in self._generators:
+            if generator[0] == designation:
+                raise KeyError(f'Designation {designation} already points to {generator[1]}')
+        self._generators.append((designation, class_path))
 
     def _get_generator(self, designation, settings):
         for generator in self._generators:
@@ -65,7 +78,6 @@ class FixtureCreator:
         field_type = str(field_data['type'])
         field_name = str(field_data['name'])
 
-
         if 'content' in field_data:
             return {field_name: field_data['content']}
         if field_type == 'foreignkey' and 'object' in field_data:
@@ -73,7 +85,7 @@ class FixtureCreator:
             new_element_pk = self._create_element(field_data['object'])
             return { field_name: new_element_pk }
         if 'generator' in field_data:
-            gen = self._get_generator(f'{field_type}-{field_data["generator"]}', field_data['settings'])
+            gen = self._get_generator(f'{field_type}{field_data["generator"]}', field_data['settings'])
             return { field_name: gen.value }
 
         return {}

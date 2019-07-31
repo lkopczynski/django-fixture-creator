@@ -1,1 +1,1 @@
-from .classes import RandomStringGenerator, RandomSequenceGenerator
+from .classes import *
